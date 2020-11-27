@@ -3,7 +3,7 @@
 
 # ### Data set preparation
 
-# In[63]:
+# In[1]:
 
 
 import numpy as np
@@ -12,7 +12,7 @@ from pathlib import Path
 from keras.preprocessing import image
 
 
-# In[64]:
+# In[2]:
 
 
 p=Path("images")
@@ -25,7 +25,7 @@ labels=[]
 for folder_dir in dirs:
    # print(folder_name)
     label=str(folder_dir).split("\\")[-1][:-1]
-    print(label)
+    # print(label)
     
     for img_path in folder_dir.glob("*.jpg"):
         img=image.load_img(img_path, target_size=(100,100))
@@ -36,17 +36,17 @@ for folder_dir in dirs:
 
 # ### Convert this into a numpy array
 
-# In[65]:
+# In[3]:
 
 
 image_data=np.array(image_data, dtype='float32')/255.0
 labels=np.array(labels)
-print(image_data.shape,labels.shape)
+# print(image_data.shape,labels.shape)
 
 
 # ### Randomly Shuffle our data!
 
-# In[66]:
+# In[4]:
 
 
 import random
@@ -59,7 +59,7 @@ image_data[:],labels[:]=zip(*combined)
 
 # ### Visualize this data
 
-# In[67]:
+# In[5]:
 
 
 def drawImg(img):
@@ -71,7 +71,7 @@ def drawImg(img):
     return
 
 
-# In[68]:
+# In[6]:
 
 
 for i in range(10):
@@ -80,7 +80,7 @@ for i in range(10):
 
 # ### SVM Classifier
 
-# In[69]:
+# In[7]:
 
 
 class SVM:
@@ -160,23 +160,23 @@ class SVM:
 
 # ### Converting data for one-for-one classification
 
-# In[70]:
+# In[8]:
 
 
 M = image_data.shape[0] 
 image_data = image_data.reshape(M,-1)
-print(image_data.shape)
-print(labels.shape)
+# print(image_data.shape)
+# print(labels.shape)
 
 
-# In[71]:
+# In[9]:
 
 
 CLASSES = len(np.unique(labels))
-print(CLASSES)                               #no of classes 
+# print(CLASSES)                               #no of classes 
 
 
-# In[72]:
+# In[10]:
 
 
 def classWiseData(x,y):
@@ -194,13 +194,13 @@ def classWiseData(x,y):
     return data
 
 
-# In[73]:
+# In[11]:
 
 
 data = classWiseData(image_data,labels)
 
 
-# In[74]:
+# In[12]:
 
 
 def getDataPairForSVM(d1,d2):
@@ -225,7 +225,7 @@ def getDataPairForSVM(d1,d2):
 
 # ### Training NC2 SVM Part
 
-# In[75]:
+# In[13]:
 
 
 import matplotlib.pyplot as plt
@@ -236,7 +236,7 @@ w,b,loss  = mySVM.fit(xp,yp,learning_rate=0.00001,maxItr=1000)
 plt.plot(loss)
 
 
-# In[76]:
+# In[14]:
 
 
 def trainSVMs(x,y):
@@ -256,7 +256,7 @@ def trainSVMs(x,y):
     return svm_classifiers
 
 
-# In[77]:
+# In[15]:
 
 
 svm_classifiers = trainSVMs(image_data,labels)
@@ -264,7 +264,7 @@ svm_classifiers = trainSVMs(image_data,labels)
 
 # ### Prediction
 
-# In[78]:
+# In[16]:
 
 
 def binaryPredict(x,w,b):
@@ -275,7 +275,7 @@ def binaryPredict(x,w,b):
         return -1
 
 
-# In[79]:
+# In[17]:
 
 
 def predict(x):
@@ -298,14 +298,14 @@ def predict(x):
     return final_prediction
 
 
-# In[80]:
+# In[18]:
 
 
-print(predict(image_data[0]))
-print(labels[0])
+# print(predict(image_data[0]))
+# print(labels[0])
 
 
-# In[81]:
+# In[19]:
 
 
 def accuracy(x,y):
@@ -319,7 +319,7 @@ def accuracy(x,y):
     return count/x.shape[0]
 
 
-# In[82]:
+# In[20]:
 
 
 accuracy(image_data,labels)
@@ -327,27 +327,20 @@ accuracy(image_data,labels)
 
 # ### SVM using sklearn
 
-# In[83]:
+# In[21]:
 
 
 from sklearn import svm
 
 
-# In[84]:
+# In[22]:
 
 
 svm_classifier = svm.SVC(kernel='linear',C=1.0)
 
 
-# In[85]:
+# In[23]:
 
 
 svm_classifier.fit(image_data,labels)
 svm_classifier.score(image_data,labels)
-
-
-# In[ ]:
-
-
-
-
