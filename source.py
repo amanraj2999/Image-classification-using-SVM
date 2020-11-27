@@ -3,7 +3,6 @@
 
 # ### Data set preparation
 
-# In[63]:
 
 
 import numpy as np
@@ -12,10 +11,9 @@ from pathlib import Path
 from keras.preprocessing import image
 
 
-# In[64]:
 
 
-p=Path("images")
+p=Path("../../Path to image folder")
 dirs=p.glob("*")
 labels_dict={"dalmatia":0, "dollar_bil":1, "pizz":2, "soccer_bal":3, "sunflowe":4}
 
@@ -36,7 +34,6 @@ for folder_dir in dirs:
 
 # ### Convert this into a numpy array
 
-# In[65]:
 
 
 image_data=np.array(image_data, dtype='float32')/255.0
@@ -46,7 +43,6 @@ print(image_data.shape,labels.shape)
 
 # ### Randomly Shuffle our data!
 
-# In[66]:
 
 
 import random
@@ -59,7 +55,6 @@ image_data[:],labels[:]=zip(*combined)
 
 # ### Visualize this data
 
-# In[67]:
 
 
 def drawImg(img):
@@ -71,7 +66,6 @@ def drawImg(img):
     return
 
 
-# In[68]:
 
 
 for i in range(10):
@@ -80,7 +74,6 @@ for i in range(10):
 
 # ### SVM Classifier
 
-# In[69]:
 
 
 class SVM:
@@ -160,7 +153,6 @@ class SVM:
 
 # ### Converting data for one-for-one classification
 
-# In[70]:
 
 
 M = image_data.shape[0] 
@@ -169,14 +161,12 @@ print(image_data.shape)
 print(labels.shape)
 
 
-# In[71]:
 
 
 CLASSES = len(np.unique(labels))
 print(CLASSES)                               #no of classes 
 
 
-# In[72]:
 
 
 def classWiseData(x,y):
@@ -194,13 +184,10 @@ def classWiseData(x,y):
     return data
 
 
-# In[73]:
 
 
 data = classWiseData(image_data,labels)
 
-
-# In[74]:
 
 
 def getDataPairForSVM(d1,d2):
@@ -225,7 +212,6 @@ def getDataPairForSVM(d1,d2):
 
 # ### Training NC2 SVM Part
 
-# In[75]:
 
 
 import matplotlib.pyplot as plt
@@ -256,7 +242,6 @@ def trainSVMs(x,y):
     return svm_classifiers
 
 
-# In[77]:
 
 
 svm_classifiers = trainSVMs(image_data,labels)
@@ -264,7 +249,6 @@ svm_classifiers = trainSVMs(image_data,labels)
 
 # ### Prediction
 
-# In[78]:
 
 
 def binaryPredict(x,w,b):
@@ -275,7 +259,6 @@ def binaryPredict(x,w,b):
         return -1
 
 
-# In[79]:
 
 
 def predict(x):
@@ -298,14 +281,12 @@ def predict(x):
     return final_prediction
 
 
-# In[80]:
 
 
 print(predict(image_data[0]))
 print(labels[0])
 
 
-# In[81]:
 
 
 def accuracy(x,y):
@@ -319,7 +300,6 @@ def accuracy(x,y):
     return count/x.shape[0]
 
 
-# In[82]:
 
 
 accuracy(image_data,labels)
@@ -327,26 +307,22 @@ accuracy(image_data,labels)
 
 # ### SVM using sklearn
 
-# In[83]:
 
 
 from sklearn import svm
 
 
-# In[84]:
 
 
 svm_classifier = svm.SVC(kernel='linear',C=1.0)
 
 
-# In[85]:
 
 
-svm_classifier.fit(image_data,labels)
+svm_classifier.fit(image_data,labels)            #get accuracy of prediction
 svm_classifier.score(image_data,labels)
 
 
-# In[ ]:
 
 
 
