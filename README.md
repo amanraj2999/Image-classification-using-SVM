@@ -1,5 +1,5 @@
 # Image-classification-using-SVM
-### Following step have been performed with the dataset:
+#### Following step have been performed with the dataset:
 1. dataset preparation </br>
 2. dataset visualization </br>
 3. svm classifier </br>
